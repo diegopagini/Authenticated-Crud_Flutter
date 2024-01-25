@@ -5,7 +5,6 @@ import 'package:teslo_shop/features/products/products.dart';
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-
     ///* Auth Routes
     GoRoute(
       path: '/login',
@@ -22,5 +21,4 @@ final appRouter = GoRouter(
       builder: (context, state) => const ProductsScreen(),
     ),
   ],
-  ///! TODO: Bloquear si no se está autenticado de alguna manera
 );
