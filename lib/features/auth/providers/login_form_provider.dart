@@ -3,7 +3,6 @@ import 'package:formz/formz.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
 // 1 - Provider State
-
 class LoginFormState {
   final bool isFormPosted;
   final bool isPosting;
@@ -84,6 +83,6 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
 // 3 - Consume provider
 final loginFormProvider =
     StateNotifierProvider.autoDispose<LoginFormNotifier, LoginFormState>((ref) {
-// autoDispose to destroy the state every time the user leaves this page
+  // autoDispose to destroy the state every time the user leaves this page
   return LoginFormNotifier();
 });
