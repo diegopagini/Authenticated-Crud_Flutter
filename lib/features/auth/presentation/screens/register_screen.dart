@@ -75,9 +75,9 @@ class _RegisterForm extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const Spacer(),
             Text('Nueva cuenta', style: textStyles.titleMedium),
-            const SizedBox(height: 30),
+            const Spacer(),
             CustomTextFormField(
               label: 'Nombre completo',
               keyboardType: TextInputType.emailAddress,
