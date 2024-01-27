@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# Flutter - Authenticated CRUD App - TesloShop
+# Flutter - TesloShop
 
 ## BE
 
