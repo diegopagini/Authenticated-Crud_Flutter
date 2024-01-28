@@ -6,5 +6,5 @@ class UserMapper {
       email: json['email'],
       fullName: json['fullName'],
       id: json['id'],
-      token: json['token']);
+      token: json['token'] ?? '');
 }
