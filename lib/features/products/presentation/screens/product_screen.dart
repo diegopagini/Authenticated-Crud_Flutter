@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teslo_shop/features/products/presentation/providers/product_provider.dart';
 
-class ProductScreen extends ConsumerStatefulWidget {
+class ProductScreen extends ConsumerWidget {
   final String productId;
 
   const ProductScreen({super.key, required this.productId});
 
   @override
-  ConsumerState createState() => ProductScreenState();
-}
-
-class ProductScreenState extends ConsumerState<ProductScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final productState = ref.watch(productProvider(productId));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Producto'),
+        title: const Text('Editar producto'),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.camera_alt_outlined))
+        ],
       ),
-      body: Center(child: Text(widget.productId)),
+      body: Center(child: Text(productState.product?.id ?? 'Cargando')),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.save_as_outlined),
+        onPressed: () {},
+      ),
     );
   }
 }
