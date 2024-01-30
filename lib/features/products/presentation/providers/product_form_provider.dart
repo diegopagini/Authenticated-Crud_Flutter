@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:teslo_shop/config/constants/environment.dart';
 import 'package:teslo_shop/features/products/domain/domain.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
@@ -62,6 +63,57 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
           Stock.dirty(value),
         ]));
   }
+
+  void onSizedChanges(List<String> sizes) {
+    state = state.copyWith(sizes: sizes);
+  }
+
+  void onGenderChange(String gender) {
+    state = state.copyWith(gender: gender);
+  }
+
+  void onDescriptionChange(String description) {
+    state = state.copyWith(description: description);
+  }
+
+  void onTagsChanged(String tags) {
+    state = state.copyWith(tags: tags);
+  }
+
+  void _touchEverything() {
+    state = state.copyWith(
+        isFormValid: Formz.validate([
+      Title.dirty(state.title.value),
+      Slug.dirty(state.slug.value),
+      Price.dirty(state.price.value),
+      Stock.dirty(state.stock.value),
+    ]));
+  }
+
+  Future<bool> onFormSubmit() async {
+    _touchEverything();
+    if (!state.isFormValid) return false;
+
+    if (onSubmitCallback == null) return false;
+
+    final productLike = {
+      'id': state.id,
+      'title': state.title.value,
+      'price': state.price.value,
+      'description': state.description,
+      'slug': state.slug,
+      'stock': state.stock.value,
+      'sizes': state.sizes,
+      'gender': state.gender,
+      'tags': state.tags.split(','),
+      'images': state.images
+          .map((img) =>
+              img.replaceAll('${Environment.apiUrl}/files/product/', ''))
+          .toList()
+    };
+
+    return true;
+  }
 }
 
 /// STATE
@@ -117,3 +169,12 @@ class ProductFormState {
           tags: tags ?? this.tags,
           images: images ?? this.images);
 }
+
+/// Provider
+final productFormProvider = StateNotifierProvider.autoDispose
+    .family<ProductFormNotifier, ProductFormState, Product>((ref, product) {
+  return ProductFormNotifier(
+    product: product,
+    // onSubmitCallback:
+  );
+});
