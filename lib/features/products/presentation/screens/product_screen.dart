@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_shop/features/products/domain/domain.dart';
-import 'package:teslo_shop/features/products/presentation/providers/product_provider.dart';
 import 'package:teslo_shop/features/products/presentation/providers/providers.dart';
 import 'package:teslo_shop/features/shared/widgets/full_screen_loader.dart';
 
