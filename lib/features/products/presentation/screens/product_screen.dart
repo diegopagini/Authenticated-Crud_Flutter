@@ -8,6 +8,11 @@ import '../widgets/custom_product_field.dart';
 
 class ProductScreen extends ConsumerWidget {
   final String productId;
+  void showSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Producto actualizado')));
+  }
 
   const ProductScreen({super.key, required this.productId});
 
@@ -33,7 +38,12 @@ class ProductScreen extends ConsumerWidget {
 
           ref
               .read(productFormProvider(productState.product!).notifier)
-              .onFormSubmit();
+              .onFormSubmit()
+              .then((bool updated) {
+            if (updated) {
+              showSnackbar(context);
+            }
+          });
         },
       ),
     );
@@ -59,7 +69,11 @@ class _ProductView extends ConsumerWidget {
         ),
         const SizedBox(height: 10),
         Center(
-            child: Text(productForm.title.value, style: textStyles.titleSmall)),
+            child: Text(
+          productForm.title.value,
+          style: textStyles.titleSmall,
+          textAlign: TextAlign.center,
+        )),
         const SizedBox(height: 10),
         _ProductInformation(product: product),
       ],
